@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata" fqn="pathAssistant">
+<apiVersion>45.0</apiVersion>
+<isExposed>true</isExposed>
+<description>Custom path assistant</description>
+<targets>
+    <target>lightning__RecordPage</target>
+</targets>
+<targetConfigs>
+    <targetConfig targets="lightning__RecordPage">
+        <property name="picklistField" label="Picklist Field" required="true" type="String" description="Picklist field's API name used to render the path. This field must be included in page layouts" />
+        <property name="statusToRender1" label="Status Required to Configure 1" required="true" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="statusToRender2" label="Status Required to Configure 2" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="statusToRender3" label="Status Required to Configure 3" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="statusToRender4" label="Status Required to Configure 4" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="statusToRender5" label="Status Required to Configure 5" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="statusToRender6" label="Status Required to Configure 6" type="String" datasource="apex://EM_CaseStatusPicklistInterface"/>
+        <property name="closedOk" label="Close Status Required to Configure" required="true" type="String" datasource="apex://EM_CaseStatusPicklistInterface" description="Picklist value that represents a closed ok step. When selected will render a green progress bar." />
+        <property name="closedOk2" label="Close Status Required to Configure2" type="String" datasource="apex://EM_CaseStatusPicklistInterface" description="Picklist value that represents a closed ok step. When selected will render a green progress bar." />
+        <property name="lastStepLabel" label="Label of last step" required="true" type="String" description="Label to give to the last step when user has to select one between multiple closed requests." />
+        <property name="pageLayout" label="Page Layout Name" required="true" type="String" description="Page Layout Developer Name." />
+        <property name="hideUpdateButton" label="Hide update button" type="Boolean" />
+    </targetConfig>
+</targetConfigs>
+</LightningComponentBundle>
