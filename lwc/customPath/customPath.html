@@ -1,0 +1,97 @@
+<template>
+    <!-- error alert  -->
+    <div if:true={errorMsg} class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_error" role="alert">
+        <span class="slds-assistive-text">error</span>
+        <span class="slds-icon_container slds-icon-utility-error slds-m-right_x-small" title="Description of icon when needed">
+            <lightning-icon icon-name="utility:error" size="small"></lightning-icon>
+        </span>
+        <h2>
+            {label.labelGenericError}
+        </h2>
+        <p>
+            {errorMsg}
+        </p>
+    </div>
+
+    <article if:false={errorMsg} class="slds-card">
+        <div class="slds-card__body slds-card__body_inner">
+            <!-- path assistant -->
+
+            <div class="slds-path">
+                <div class="slds-grid slds-path__track">
+                    <template if:false={toggleBodyViewDisabled}>
+                        <lightning-button-icon class='slds-button slds-button--icon-border-filled slds-path__trigger slds-no-flex slds-m-horizontal--small slds-flip--vertical'
+                                               icon-name={toggleArrow}
+                                               alternative-text='toggle'
+                                               size='medium'
+                                               variant='border' onclick={toggleBody} ></lightning-button-icon>
+                    </template>
+                    <template if:true={toggleBodyViewDisabled}>
+                        <lightning-button-icon disabled class="slds-button slds-button--icon-border-filled slds-path__trigger slds-no-flex slds-m-horizontal--small slds-flip--vertical"
+                                               icon-name="utility:chevronup"
+                                               alternative-text='toggle'
+                                               size='medium'
+                                               variant='border'></lightning-button-icon>
+                    </template>
+                    <div class="slds-grid slds-path__scroller-container">
+                        <div class="slds-path__scroller" role="application">
+                            <div class="slds-path__scroller_inner">
+                                <!-- spinner -->
+                                <lightning-spinner variant="brand" size="small" if:true={hasToShowSpinner}></lightning-spinner>
+                                <ul if:true={isLoaded} class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                    <template for:each={steps} for:item="step">
+                                        <li key={step.value} class={step.classText} role="presentation">
+                                            <a aria-selected="false" class="slds-path__link" href="javascript:void(0);" role="option" tabindex="-1" data-value={step.value} onclick={handleStepSelected}>
+                                                <span class="slds-path__stage">
+                                                    <lightning-icon
+                                                            icon-name="utility:check"
+                                                            size="xx-small"
+                                                            variant="inverse"
+                                                    ></lightning-icon>
+                                                </span>
+                                                <span class="slds-path__title">{step.label}</span>
+                                            </a>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div if:false={hideUpdateButton} class="slds-grid slds-path__action">
+                        <template if:true={isLoaded}>
+                            <!-- button enabled -->
+                            <!--<button if:false={isUpdateButtonDisabled} type="button" class="slds-button slds-button_brand slds-path__mark-complete" onclick={handleUpdateButtonClick}>
+                                {updateButtonText}
+                            </button>
+                            &lt;!&ndash; button disabled  &ndash;&gt;
+                            <button if:true={isUpdateButtonDisabled} type="button" class="slds-button slds-button_brand slds-path__mark-complete" disabled="disabled">
+                                {updateButtonText}
+                            </button>-->
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <template if:true={showGuidanceView}>
+                <div class="slds-path__content" id="path-coaching-2">
+                    <div class="slds-path__coach slds-grid slds-gutters">
+                        <div class="slds-path__guidance slds-col slds-size_2-of-3">
+                            <h2 class="slds-path__coach-title">{label.labelGuidanceForSuccess}</h2>
+                            <div class="slds-text-longform slds-path__guidance-content">
+                                <lightning-formatted-rich-text value= {guidanceMsg}></lightning-formatted-rich-text>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-3 slds-p-around_x-large">
+                            <button if:true={stageButtonAvailable} type="button" class="slds-button slds-button_brand" onclick={handleUpdateButtonClick}>
+                                {label.labelStageUpdatedButton}
+                            </button>
+                            <!--<div class="slds-text-body_regular">
+                                <lightning-formatted-text value= {statusUpdateMessage}></lightning-formatted-text>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </article>
+</template>
